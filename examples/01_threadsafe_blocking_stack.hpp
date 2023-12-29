@@ -23,7 +23,7 @@ public:
         data = other.data;
     }
 
-    void push(T new_value) // using passing-by-value to avoid code bloat but gaining additional move operation
+    void push(T new_value)
     {
         std::scoped_lock lock(m);
         data.push(std::move(new_value));
