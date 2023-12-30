@@ -13,7 +13,7 @@ public:
     threadsafe_queue &operator=(threadsafe_queue const &) = delete; // excluding assignment for simplicity
     threadsafe_queue(threadsafe_queue const &other)
     {
-        std::scoped_lock lock(mutex);
+        std::scoped_lock lock(other.mutex);
         data_queue = other.data_queue;
     }
 
