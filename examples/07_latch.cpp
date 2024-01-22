@@ -1,9 +1,14 @@
 #include <future>
-#include <latch>
-#include <vector>
-#include <string>
 #include <iostream>
+#include <latch>
+#include <string>
 #include <thread>
+#include <vector>
+
+/*
+    Latches are useful for coordinating the execution of different threads,
+    ensuring that certain tasks or computations are completed before others begin.
+*/
 
 void do_work(unsigned num)
 {
@@ -23,17 +28,17 @@ int main()
 
     std::vector<std::future<void>> threads;
 
-    for(unsigned i = 0; i < thread_count; ++i)
+    for (unsigned i = 0; i < thread_count; ++i)
     {
-        threads.push_back(std::async(std::launch::async, [&, i]{
+        threads.push_back(std::async(std::launch::async, [&, i]
+                                     {
             do_work(i);
             work_done.count_down();
-            do_more_stuff();
-        }));
+            do_more_stuff(); }));
     }
 
     work_done.wait();
-    std::cout << "work done" << std::endl;    
+    std::cout << "work done" << std::endl;
 
     return 0;
 }
